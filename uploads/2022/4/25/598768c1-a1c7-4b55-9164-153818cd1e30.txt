@@ -1,0 +1,11 @@
+-- select * from p order by size Desc
+-- select count(*) from p where size >= 44
+-- select count (*) from sp  where pid ='P2'   
+-- select count (distinct sid) from sp 
+--  select count (distinct (pid)), max(Qty),min(qty) from sp 
+--  select s.sname from s,sp where s.sid = sp.sid and pid = 'P2'
+-- select distinct s.Sname from p,sp,s where p.pid = sp.pid and color = 'Red' and s.sid = sp.sid
+-- select* from s inner join sp   on s.sid = sp.sid inner join p on p.pid =  sp.pid
+-- where sp.pid = 'P2'
+
+select* from bekorchi  left join ish on ish.Bid = bekorchi.id

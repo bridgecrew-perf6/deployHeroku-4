@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void Sanoq_sistema(){
+	int a, i, b;
+	i = 2;
+	cout << " Son kiriring: "; cin >> a;
+	int ikki[200];
+	int t = 0;
+	while(a > 1){
+		b = a % i;
+		ikki[t] = b;
+		a /= i;
+		t++;
+	}
+	t--;
+	cout << " Ikkilik :";
+	cout <<1;
+	while(t >= 0){
+		cout << ikki[t];
+		t--;
+	}
+}
+
+int main(){
+	Sanoq_sistema();
+	return 0;
+}
