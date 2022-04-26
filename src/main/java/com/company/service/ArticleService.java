@@ -1,7 +1,6 @@
 package com.company.service;
 
 import com.company.dto.ArticleDto;
-import com.company.dto.CategoryDto;
 import com.company.entity.ArticleEntity;
 import com.company.exception.ItemNotFoundException;
 import com.company.repository.ArticleRepository;
