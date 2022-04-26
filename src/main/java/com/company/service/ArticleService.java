@@ -20,8 +20,7 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository repository;
-    @Autowired
-    private ProfileService service;
+
 
     public ArticleDto create(ArticleDto dto,Integer pId) {
         ArticleValidation.isValid(dto);
