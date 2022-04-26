@@ -18,9 +18,9 @@ public class ArticleController {
 
     @PostMapping("/adm")
     public ResponseEntity<?> create(@RequestBody ArticleDto dto,
-                                    HttpServletRequest request){
+                                    HttpServletRequest request) {
         Integer id = JwtUtil.getIdFromHeader(request, ProfileRole.ADMIN);
-        return ResponseEntity.ok(service.create(dto,id));
+        return ResponseEntity.ok(service.create(dto, id));
     }
 
     @GetMapping("/public/list")
@@ -44,11 +44,52 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") Integer id){
+    public ResponseEntity<?> getById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
+    @GetMapping("/lastAdded")
+    public ResponseEntity<?> lastAdded4() {
+        return ResponseEntity.ok(service.last4());
+    }
 
+    @GetMapping("/lastByRegion/{id}")
+    public ResponseEntity<?> last4ByRegion(@PathVariable("id") Integer regionId) {
+        return ResponseEntity.ok(service.last4ByRegion(regionId));
+    }
+
+    @GetMapping("/lastByCategory/{id}")
+    public ResponseEntity<?> last4ByCategory(@PathVariable("id") Integer categoryId) {
+        return ResponseEntity.ok(service.last4ByCategory(categoryId));
+    }
+
+    @GetMapping("/getByType/{id}")
+    public ResponseEntity<?> getByType(@RequestParam(value = "page", defaultValue = "0") int page,
+                                       @RequestParam(value = "size", defaultValue = "10") int size,
+                                       @PathVariable("id") Integer typeId) {
+        return ResponseEntity.ok(service.getArticleByType(typeId, page, size));
+    }
+
+    @GetMapping("/getByCategory/{id}")
+    public ResponseEntity<?> getByCategory(@RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "size", defaultValue = "10") int size,
+                                           @PathVariable("id") Integer categoryId) {
+        return ResponseEntity.ok(service.getArticleByCategory(categoryId, page, size));
+    }
+
+    @GetMapping("/getByRegion/{id}")
+    public ResponseEntity<?> getByRegion(@RequestParam(value = "page", defaultValue = "0") int page,
+                                         @RequestParam(value = "size", defaultValue = "10") int size,
+                                         @PathVariable("id") Integer regId) {
+        return ResponseEntity.ok(service.getArticleByRegion(regId, page, size));
+    }
+
+    @GetMapping("/getByProfile/{id}")
+    public ResponseEntity<?> getByProfile(@RequestParam(value = "page", defaultValue = "0") int page,
+                                          @RequestParam(value = "size", defaultValue = "10") int size,
+                                          @PathVariable("id") Integer pId) {
+        return ResponseEntity.ok(service.getProfileArticle(pId, page, size));
+    }
 
 
 
