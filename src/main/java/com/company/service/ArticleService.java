@@ -3,6 +3,7 @@ package com.company.service;
 import com.company.dto.ArticleDto;
 import com.company.entity.ArticleEntity;
 import com.company.enums.ArticleStatus;
+import com.company.exception.ArticleStatusNotExistsException;
 import com.company.exception.ItemNotFoundException;
 import com.company.repository.ArticleRepository;
 import com.company.validation.ArticleValidation;
@@ -155,5 +156,24 @@ public class ArticleService {
                 forEach(entity -> {list.add(toDo(entity));
                 });
         return list;
+    }
+    // publish
+    public Boolean articlePublish(Integer articleId){
+        ArticleEntity article = repository.findById(articleId).orElseThrow(() -> {
+            throw new ItemNotFoundException("item not found");
+        });
+        if(!article.getStatus().equals(ArticleStatus.CREATED)){
+            throw new ArticleStatusNotExistsException("status not exists");
+        }
+        repository.updateStatus(ArticleStatus.PUBLISHED,articleId);
+        return true;
+    }
+
+    public Boolean articleBlock(Integer articleId){
+        ArticleEntity article = repository.findById(articleId).orElseThrow(() -> {
+            throw new ItemNotFoundException("item not found");
+        });
+        repository.updateStatus(ArticleStatus.BLOCKED,articleId);
+        return true;
     }
 }

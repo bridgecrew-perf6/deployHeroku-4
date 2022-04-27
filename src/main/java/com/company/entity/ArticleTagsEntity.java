@@ -11,16 +11,19 @@ import java.util.List;
 @Table(name = "article_tags")
 @Getter
 @Setter
-public class ArticleTagsEntity {
+public class ArticleTagsEntity extends BasicEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "tag_id",nullable = false)
+    private Integer tagId;
+
+    @Column(name = "article_id",nullable = false)
+    private Integer articleId;
+
     @ManyToOne
-    @JoinColumn(name = "tag_id")
+    @JoinColumn(name = "tag_id",insertable = false,updatable = false)
     private TagsEntity tags;
     @ManyToOne
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "article_id",insertable = false,updatable = false)
     private ArticleEntity article;
 
 }

@@ -1,6 +1,7 @@
 package com.company.repository;
 
 import com.company.entity.ArticleEntity;
+import com.company.enums.ArticleStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -32,6 +33,11 @@ public interface ArticleRepository extends JpaRepository<ArticleEntity,Integer> 
     List<ArticleEntity> findTop4ByRegionId(Integer id,Sort createDate);
 
     List<ArticleEntity> findTop4ByCategoryEntityId(Integer id,Sort createDate);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update ArticleEntity set status= :status where id=:id")
+    void updateStatus(@Param("status") ArticleStatus status, @Param("id")Integer id);
 
 
 

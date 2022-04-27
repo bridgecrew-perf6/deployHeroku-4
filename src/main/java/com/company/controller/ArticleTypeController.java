@@ -23,7 +23,7 @@ public class ArticleTypeController {
     @GetMapping("/adm")
     public ResponseEntity<?> getList(HttpServletRequest request){
         Integer pId = JwtUtil.getIdFromHeader(request, ProfileRole.ADMIN);
-        return ResponseEntity.ok(service.list(pId));
+         return ResponseEntity.ok(service.list(pId));
 
     }
 

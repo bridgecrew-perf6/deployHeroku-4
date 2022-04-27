@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExcceptionHandleController {
 
     @ExceptionHandler({EmailAlreadyException.class, AppBadRequestException.class,
-            ItemNotFoundException.class, PasswordOrEmailWrongEmail.class})
+            ItemNotFoundException.class, PasswordOrEmailWrongEmail.class
+            ,ArticleStatusNotExistsException.class})
     public ResponseEntity<?> handleBadRequestException(RuntimeException e){
         return ResponseEntity.badRequest().body(e.getMessage());
     }
@@ -25,6 +26,7 @@ public class ExcceptionHandleController {
     public ResponseEntity<?> tokenNotValid(RuntimeException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
+
 
 
 }
