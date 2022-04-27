@@ -1,5 +1,6 @@
 package com.company.dto;
 
+import com.company.enums.ArticleStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,8 @@ public class ArticleDto {
     private String content;
     private Integer regionId;
     private Integer typeId;
-    private Long viewCount;
+    private Integer viewCount;
+    private ArticleStatus status;
+    private Integer categoryId;
     private LocalDateTime createDate;
 }

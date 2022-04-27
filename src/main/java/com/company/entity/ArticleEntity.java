@@ -1,8 +1,9 @@
 package com.company.entity;
 
+import com.company.enums.ArticleStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Table
 @Getter
 @Setter
+
 public class ArticleEntity extends BasicEntity{
     @Column(nullable = false)
     private String title;
@@ -22,8 +24,12 @@ public class ArticleEntity extends BasicEntity{
     @Column
     private LocalDateTime publicDate;
     @Column(name = "view",nullable = false)
-    private Long viewCount;
-
+    private Integer viewCount;
+    @Column(name = "shared_count")
+    private Integer sharedCount;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ArticleStatus status;
     @Column(name = "type_id",nullable = false)
     private Integer typeId;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,10 +44,9 @@ public class ArticleEntity extends BasicEntity{
 
     @Column(name = "attach_id",nullable = false)
     private String attachId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attach_id",insertable = false,updatable = false)
     private AttachEntity attach;
-
 
     @Column(name = "region_id",nullable = false)
     private Integer regionId;
@@ -54,6 +59,4 @@ public class ArticleEntity extends BasicEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id",insertable = false,updatable = false)
     private ProfileEntity profile;
-
-
 }

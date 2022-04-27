@@ -21,6 +21,9 @@ public class SecuredFilterConfig {
         bean.addUrlPatterns("/attach/adm/*");
         bean.addUrlPatterns("/article/adm/*");
         bean.addUrlPatterns("/email/adm/*");
+        bean.addUrlPatterns("/like/profile/*");
+        bean.addUrlPatterns("/profile-image/*");
+
         return bean;
     }
 }

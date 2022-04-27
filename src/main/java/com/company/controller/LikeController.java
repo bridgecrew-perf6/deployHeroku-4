@@ -7,7 +7,6 @@ import com.company.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
@@ -59,4 +58,10 @@ public class LikeController {
         return ResponseEntity.ok(service.getList( page, size));
     }
 
+    @GetMapping("/profile/{articleId}")
+    public ResponseEntity<?> checkLike(@PathVariable("articleId") Integer articleId,
+                                       HttpServletRequest request){
+        Integer pId = JwtUtil.getIdFromHeader(request);
+        return ResponseEntity.ok(service.checkLike(articleId,pId));
+    }
 }

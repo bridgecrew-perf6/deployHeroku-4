@@ -2,6 +2,7 @@ package com.company.service;
 
 import com.company.dto.ArticleDto;
 import com.company.entity.ArticleEntity;
+import com.company.enums.ArticleStatus;
 import com.company.exception.ItemNotFoundException;
 import com.company.repository.ArticleRepository;
 import com.company.validation.ArticleValidation;
@@ -20,7 +21,6 @@ public class ArticleService {
     @Autowired
     private ArticleRepository repository;
 
-
     public ArticleDto create(ArticleDto dto,Integer pId) {
         ArticleValidation.isValid(dto);
         ArticleEntity article = new ArticleEntity();
@@ -28,11 +28,14 @@ public class ArticleService {
         article.setDescription(dto.getDescription());
         article.setTitle(dto.getTitle());
         article.setProfileId(pId);
+        article.setCategoryId(dto.getCategoryId());
+        article.setTypeId(dto.getTypeId());
+        article.setRegionId(dto.getRegionId());
+        article.setStatus(ArticleStatus.CREATED);
         repository.save(article);
         dto.setId(article.getId());
         return dto;
     }
-
     public ArticleDto update(Integer id, ArticleDto dto, Integer pId) {
         ArticleValidation.isValid(dto);
         Optional<ArticleEntity> byId = repository.findById(id);
@@ -47,7 +50,6 @@ public class ArticleService {
 
         return toDo(article);
     }
-
     public boolean delete(Integer id){
         Optional<ArticleEntity> byId = repository.findById(id);
         if (byId.isEmpty()) {
@@ -56,7 +58,6 @@ public class ArticleService {
         repository.deleteById(id);
         return true;
     }
-
     public List<ArticleDto> getList(){
         List<ArticleDto> list = new LinkedList<>();
         repository.findAll().forEach(entity->{
@@ -64,7 +65,6 @@ public class ArticleService {
         });
         return list;
     }
-
     public List<ArticleDto> list(int page,int size){
         Pageable pageable = PageRequest.of(page,size);
         List<ArticleDto> list = new LinkedList<>();
@@ -73,13 +73,11 @@ public class ArticleService {
         });
         return list;
     }
-
     public ArticleEntity get(Integer aticleId){
         return repository.findById(aticleId).orElseThrow(()->{
             throw new ItemNotFoundException("Article not found");
         });
     }
-
     private ArticleDto toDo(ArticleEntity entity) {
         ArticleDto dto = new ArticleDto();
         dto.setId(entity.getId());
@@ -93,13 +91,11 @@ public class ArticleService {
         return dto;
 
     }
-
     public ArticleDto getById(Integer id) {
         ArticleEntity article = get(id);
         repository.updateViewCount(article.getViewCount()+1,id);
         return  toDo(article);
     }
-
     // getProfileArticle + pagination,
     public List<ArticleDto> getProfileArticle(Integer pId,int page,int size){
         Pageable pageable = PageRequest.of(page,size);

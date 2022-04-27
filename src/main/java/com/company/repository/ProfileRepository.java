@@ -17,4 +17,6 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,Integer> 
     @Transactional
     @Query(value = "update ProfileEntity set attach.id = :attachId where id=:id")
     void updateImage(@Param("attachId") String imageId,@Param("id") Integer id);
+
+
 }

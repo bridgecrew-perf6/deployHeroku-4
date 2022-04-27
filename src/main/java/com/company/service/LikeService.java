@@ -1,21 +1,19 @@
 package com.company.service;
 
-import com.company.dto.ComentDto;
 import com.company.dto.LikeDto;
 import com.company.entity.ArticleEntity;
-import com.company.entity.ComentEntity;
 import com.company.entity.LikeEntity;
 import com.company.enums.ProfileRole;
 import com.company.exception.AppForbiddenexception;
 import com.company.exception.ItemNotFoundException;
 import com.company.repository.LikeRepository;
-import com.company.validation.CommentValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LikeService {
@@ -109,6 +107,12 @@ public class LikeService {
         dto.setCreateDate(entity.getCreateDate());
         dto.setUpdateDate(entity.getUpdateDate());
         return dto;
+    }
+
+    public LikeDto checkLike(Integer articleId,Integer pId){
+        Optional<LikeEntity> checkLike = likeRepository.
+                findAllByProfileIdAndArticleId(pId, articleId);
+        return checkLike.map(this::toDto).orElse(null);
     }
 
 

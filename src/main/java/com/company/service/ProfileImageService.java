@@ -6,6 +6,7 @@ import com.company.entity.AttachEntity;
 import com.company.entity.ProfileImage;
 import com.company.exception.ItemNotFoundException;
 import com.company.repository.ProfileImageRepository;
+import com.company.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class ProfileImageService {
     private ProfileImageRepository repository;
     @Autowired
     private AttachService attachService;
+    @Autowired
+    private ProfileRepository profileRepository;
     @Value("${server.domen.name}")
     private String urlDowload;
     @Value("${attach.upload.folder}")
@@ -31,10 +34,11 @@ public class ProfileImageService {
 
         ProfileImage profileImage = new ProfileImage();
         profileImage.setProfileId(id);
+        profileImage.setAttachId(entity.getId());
         profileImage.setImageUrl(imageUrl);
         repository.save(profileImage);
+        profileRepository.updateImage(entity.getId(),id);
         return toDo(profileImage);
-
     }
 
     public ProfileImageDto get(Integer id){
@@ -44,7 +48,6 @@ public class ProfileImageService {
         }
         return toDo(optional.get());
     }
-
     public Boolean delete(Integer id){
         return repository.deleteByProfileId(id);
     }

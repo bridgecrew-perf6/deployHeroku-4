@@ -5,6 +5,7 @@ import com.company.enums.LangEnum;
 import com.company.enums.ProfileRole;
 import com.company.service.ArticleTypeService;
 import com.company.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/articleType")
+@RequiredArgsConstructor
 public class ArticleTypeController {
-    @Autowired
-    private ArticleTypeService service;
+
+    private final ArticleTypeService service;
 
     @GetMapping("/adm")
     public ResponseEntity<?> getList(HttpServletRequest request){

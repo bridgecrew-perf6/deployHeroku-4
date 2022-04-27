@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "profile_image")
@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 @Setter
 public class ProfileImage extends BasicEntity {
 
-
     @Column
     private String imageUrl;
+    @Column
+    private String attachId;
 
     @Column(name = "profile_id",nullable = false,unique = true)
     private Integer profileId;
